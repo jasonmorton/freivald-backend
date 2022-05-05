@@ -1,0 +1,15 @@
+[package]
+name = "freivald-backend"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rocket = "0.5.0-rc.1"
+ark-bls12-381 = "0.3"
+ark-std = "0.3"
+#getrandom = {version = "0.2.6", features =["js"]}
+rand = { version = "0.8", features = [ "std", "std_rng" ] } # provides ark_std::rand::thread_rng
+nalgebra = "0.31"
+serde = { version = "1.0", features = ["derive"] }
