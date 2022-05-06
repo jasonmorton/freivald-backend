@@ -6,10 +6,21 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rocket = "0.5.0-rc.1"
+#rocket = { version = "0.4", features = ["json"] }
+rocket = { version = "0.5.0-rc.1", features = ["json"] }
+# rocket_cors = { git = "https://github.com/lawliet89/rocket_cors", branch = "master" }
 ark-bls12-381 = "0.3"
 ark-std = "0.3"
-#getrandom = {version = "0.2.6", features =["js"]}
+ark-ff = "0.3"
+#getrandom = {version = "0.2.6", features =["js"]} # needed for thread_rng in wasm in js runtime
 rand = { version = "0.8", features = [ "std", "std_rng" ] } # provides ark_std::rand::thread_rng
-nalgebra = "0.31"
+nalgebra = { version = "0.31", features =["serde-serialize"]}
 serde = { version = "1.0", features = ["derive"] }
+
+
+
+
+[dependencies.rocket_contrib]
+version = "0.4.10"
+default-features = false
+features = ["serve"]
