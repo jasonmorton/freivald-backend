@@ -2,11 +2,6 @@
 
 #[macro_use]
 extern crate rocket;
-// use crate::rocket::tokio::io::{AsyncRead, AsyncReadExt};
-// use rocket::response::status::NotFound;
-// use rocket::tokio::fs::File;
-// use rocket_contrib::serve::StaticFiles;
-//use tokio::io::{self, AsyncReadExt};
 use rocket::fs::{relative, FileServer};
 
 use ark_bls12_381::Fr as F;
@@ -38,24 +33,6 @@ fn index() -> &'static str {
     "Hello, world!"
 }
 
-// this literally gives the file, like source, not serves it
-// #[get("/<staticfile>")]
-// async fn retrieve(staticfile: &str) -> Option<File> {
-//     let filename = format!("static/{staticfile}", staticfile = staticfile);
-//     File::open(&filename).await.ok()
-// }
-
-// #[get("/<staticfile>")]
-// async fn retrieve(staticfile: &str) -> String {
-//     let filename = format!("static/{staticfile}", staticfile = staticfile);
-//     let mut file = File::open(&filename).await.unwrap();
-//     let mut buffer = String::new();
-//     file.read_to_string(&mut buffer).await.unwrap();
-//     buffer
-// }
-
-// deserialize, multiply, reserialize
-//#[post("/multiply", format = "json", data = "<json_request>")] // format = "json" ignores unless it is application/json
 #[post("/", data = "<json_request>")]
 pub fn multiply(json_request: Json<Request>) -> Json<Response> {
     println!("{:?}", json_request);
@@ -72,13 +49,4 @@ fn rocket() -> _ {
     rocket::build()
         .mount("/mul", routes![multiply])
         .mount("/", FileServer::from(relative!("static")))
-    //        .mount("/", routes![retrieve])
-    //        .mount("/", StaticFiles::from("./static"))
 }
-
-// fn main() {
-//     rocket::ignite()
-//         .mount("/mul", routes![index])
-//         .mount("/", StaticFiles::from("./static"))
-//         .launch();
-// }
